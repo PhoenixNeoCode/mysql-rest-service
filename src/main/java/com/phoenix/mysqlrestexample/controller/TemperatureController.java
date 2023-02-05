@@ -32,7 +32,7 @@ public class TemperatureController {
         return ResponseEntity.ok(temperatureService.getTemperature(dateTime));
     }
 
-    @PostMapping()
+    @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public void saveTemperature(@RequestBody TemperatureDto temperatureDto) {
         temperatureService.saveTemperature(temperatureDto);
