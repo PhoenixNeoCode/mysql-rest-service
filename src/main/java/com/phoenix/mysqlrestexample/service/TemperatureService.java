@@ -13,6 +13,8 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TemperatureService {
@@ -25,6 +27,14 @@ public class TemperatureService {
                               TemperatureMapper temperatureMapper) {
         this.temperatureRepository = temperatureRepository;
         this.temperatureMapper = temperatureMapper;
+    }
+
+    public List<TemperatureDto> getAllTemperatures() {
+        List<TemperatureDto> temperatureDtos = new ArrayList<>();
+        Iterable<TemperatureEntity> temperatureEntities = temperatureRepository.findAll();
+        temperatureEntities.forEach(temperatureEntity -> temperatureDtos.add(
+                temperatureMapper.temperatureEntityToTemperatureDto(temperatureEntity)));
+        return temperatureDtos;
     }
 
     public TemperatureDto getTemperature(String dateTime) {
